@@ -10,6 +10,16 @@ from ubteacher.modeling import *
 from ubteacher.engine import *
 from ubteacher import add_ubteacher_config
 
+from detectron2.data.datasets import register_coco_instances
+register_coco_instances("alien_barley_train",
+        {},
+        "datasets/alien-barley/annotations/instances_train.json",
+        "datasets/alien-barley/train/")
+register_coco_instances("alien_barley_test",
+        {},
+        "datasets/alien-barley/annotations/instances_test.json",
+        "datasets/alien-barley/test/")
+
 
 
 def setup(args):

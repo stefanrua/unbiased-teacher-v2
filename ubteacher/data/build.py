@@ -33,6 +33,8 @@ def divide_label_unlabel(
     num_all = len(dataset_dicts)
     num_label = int(SupPercent / 100.0 * num_all)
 
+    return dataset_dicts[:int(num_label)], dataset_dicts[int(num_label):]
+
     # read from pre-generated data seed
     with PathManager.open(random_data_seed_path, "r") as COCO_sup_file:
         coco_random_idx = json.load(COCO_sup_file)
