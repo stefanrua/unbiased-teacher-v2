@@ -7,8 +7,8 @@ name = "alien-barley-test"
 data_path = "datasets/alien-barley/test/"
 
 # The path to the COCO labels JSON file
-labels_path = "datasets/alien-barley/annotations/instances_test.json"
-#labels_path = "output/inference/coco_instances_results_fixed.json"
+#labels_path = "datasets/alien-barley/annotations/instances_test.json"
+labels_path = "output-test/inference/coco_instances_results_fixed.json"
 
 # Import the dataset
 dataset = fo.Dataset.from_dir(
@@ -17,6 +17,5 @@ dataset = fo.Dataset.from_dir(
     labels_path=labels_path,
 )
 
-fo.config.logging_level = 'DEBUG'
 session = fo.launch_app(dataset)
 session.wait()
