@@ -7,18 +7,18 @@ inferences_file_out = 'output-test/inference/coco_instances_results_fixed.json'
 with open(label_file, 'rb') as f:
     labels = json.load(f)
 
-with open(inferences_file, 'rb') as f:
-    inferences = json.load(f)
+with open(inferences_file, 'r') as f:
+    s = f.read()
+    s = '{"annotations": ' + s + '}'
+    inferences = json.loads(s)
 
 for a in inferences['annotations']:
     a['category_id'] = 1
 labels['annotations'] += inferences['annotations']
 labels['categories'] = [
-        {'supercategory': 'none', 'id': 0, 'name': 'labels'},
-        {'supercategory': 'none', 'id': 1, 'name': 'predictions'},
+        {'supercategory': 'none', 'id': 0, 'name': 'label'},
+        {'supercategory': 'none', 'id': 1, 'name': 'prediction'},
         ]
-
-print(labels)
 
 with open(inferences_file_out, 'w') as f:
     json.dump(labels, f)
