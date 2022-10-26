@@ -11,5 +11,6 @@ module load pytorch
 tar -xf /scratch/project_2005430/ruastefa/datasets/alien-barley.tar -C $LOCAL_SCRATCH
 
 srun python3 train_net.py \
+      --resume \
       --num-gpus 4 \
       --config configs/Faster-RCNN/alien-barley/all_samples.yaml
