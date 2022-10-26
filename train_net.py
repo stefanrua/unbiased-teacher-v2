@@ -17,6 +17,10 @@ register_coco_instances("alien_barley_train",
         {},
         f"{datasets}/alien-barley/annotations/instances_train.json",
         f"{datasets}/alien-barley/train/")
+register_coco_instances("alien_barley_unlabeled",
+        {},
+        f"{datasets}/alien-barley/annotations/instances_unlabeled.json",
+        f"{datasets}/alien-barley/unlabeled/")
 register_coco_instances("alien_barley_test",
         {},
         f"{datasets}/alien-barley/annotations/instances_test.json",
@@ -47,7 +51,7 @@ def main(args):
         raise ValueError("Trainer Name is not found.")
 
     if args.eval_only:
-        if cfg.SEMISUPNET.Trainer == "ubteacher":
+        if True: #cfg.SEMISUPNET.Trainer == "ubteacher":
             model = Trainer.build_model(cfg)
             model_teacher = Trainer.build_model(cfg)
             ensem_ts_model = EnsembleTSModel(model_teacher, model)
@@ -55,7 +59,9 @@ def main(args):
             DetectionCheckpointer(
                 ensem_ts_model, save_dir=cfg.OUTPUT_DIR
             ).resume_or_load(cfg.MODEL.WEIGHTS, resume=args.resume)
-            res = Trainer.test(cfg, ensem_ts_model.modelTeacher)
+            # TODO figure out why modelTeacher doesn't work
+            # (this is the case after 1000 iter test training at least)
+            res = Trainer.test(cfg, ensem_ts_model.modelStudent)
 
         else:
             model = Trainer.build_model(cfg)

@@ -33,26 +33,26 @@ def divide_label_unlabel(
     num_all = len(dataset_dicts)
     num_label = int(SupPercent / 100.0 * num_all)
 
-    return dataset_dicts[:int(num_label)], dataset_dicts[int(num_label):]
+    if random_data_seed == 0:
+        return dataset_dicts[:int(num_label)], dataset_dicts[int(num_label):]
 
-    # read from pre-generated data seed
-    with PathManager.open(random_data_seed_path, "r") as COCO_sup_file:
-        coco_random_idx = json.load(COCO_sup_file)
+    elif random_data_seed == 1:
+        with PathManager.open(random_data_seed_path, "r") as dataseed:
+            idx_list = json.load(dataseed)
+        label_dicts = []
+        unlabel_dicts = []
+        labeled_idx = set(idx_list)
 
-    labeled_idx = np.array(coco_random_idx[str(SupPercent)][str(random_data_seed)])
-    assert labeled_idx.shape[0] == num_label, "Number of READ_DATA is mismatched."
+        for i in range(len(dataset_dicts)):
+            if dataset_dicts[i]['image_id'] in labeled_idx:
+                label_dicts.append(dataset_dicts[i])
+            else:
+                unlabel_dicts.append(dataset_dicts[i])
 
-    label_dicts = []
-    unlabel_dicts = []
-    labeled_idx = set(labeled_idx)
+        return label_dicts, unlabel_dicts
 
-    for i in range(len(dataset_dicts)):
-        if i in labeled_idx:
-            label_dicts.append(dataset_dicts[i])
-        else:
-            unlabel_dicts.append(dataset_dicts[i])
-
-    return label_dicts, unlabel_dicts
+    else:
+        print("oh no!")
 
 
 # uesed by supervised-only baseline trainer

@@ -27,8 +27,7 @@ SOLVER:
   BASE_LR: 0.01
 DATALOADER:
   SUP_PERCENT: 50.0
-  RANDOM_DATA_SEED: 0
-  #RANDOM_DATA_SEED_PATH: dataseed/alien-barley_supervision.txt"
+  RANDOM_DATA_SEED: 'percent'
 DATASETS:
   CROSS_DATASET: False
   TRAIN: ("alien_barley_train",)
