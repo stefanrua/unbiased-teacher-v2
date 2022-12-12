@@ -8,10 +8,10 @@
 #SBATCH --gres=gpu:a100:4,nvme:20
 
 module load pytorch
-tar -xf /scratch/project_2005430/ruastefa/datasets/alien-barley.tar -C $LOCAL_SCRATCH
+tar -xf /scratch/project_2005430/ruastefa/datasets/alien-barley-0.0.1.tar -C $LOCAL_SCRATCH
 
 srun python3 train_net.py \
       --eval-only \
       --num-gpus 4 \
       --config configs/Faster-RCNN/alien-barley/all_samples.yaml \
-      MODEL.WEIGHTS output/model_0107999.pth
+      MODEL.WEIGHTS outputs/all-train/model_0061999.pth

@@ -36,7 +36,8 @@ def main(args):
         raise ValueError("Trainer Name is not found.")
 
     if args.eval_only:
-        if True: #cfg.SEMISUPNET.Trainer == "ubteacher":
+        #if cfg.SEMISUPNET.Trainer == "ubteacher":
+        if True:
             model = Trainer.build_model(cfg)
             model_teacher = Trainer.build_model(cfg)
             ensem_ts_model = EnsembleTSModel(model_teacher, model)
