@@ -8,9 +8,8 @@
 #SBATCH --gres=gpu:a100:4,nvme:50
 
 module load pytorch
-tar -xf /scratch/project_2005430/ruastefa/datasets/alien-barley.tar -C $LOCAL_SCRATCH
+tar -xf /scratch/project_2005430/ruastefa/datasets/alien-barley-2-train.tar -C $LOCAL_SCRATCH
 
 srun python3 train_net.py \
-      --resume \
       --num-gpus 4 \
-      --config configs/Faster-RCNN/alien-barley/all_samples.yaml
+      --config configs/Faster-RCNN/alien-barley/top_part.yaml
