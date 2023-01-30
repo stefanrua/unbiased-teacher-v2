@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --job-name=alien-barley-train
+#SBATCH --job-name=train-top-rcnn
 #SBATCH --account=project_2005430
-#SBATCH --partition=gpumedium
-#SBATCH --time=36:00:00
+#SBATCH --partition=gputest
+#SBATCH --time=00:15:00
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
 #SBATCH --gres=gpu:a100:4,nvme:50
