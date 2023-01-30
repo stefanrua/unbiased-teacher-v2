@@ -10,6 +10,7 @@ from ubteacher.modeling import *
 from ubteacher.engine import *
 from ubteacher import add_ubteacher_config
 
+import register
 
 
 def setup(args):
