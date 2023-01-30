@@ -10,7 +10,6 @@ from ubteacher.modeling import *
 from ubteacher.engine import *
 from ubteacher import add_ubteacher_config
 
-import register
 
 
 def setup(args):
@@ -36,8 +35,7 @@ def main(args):
         raise ValueError("Trainer Name is not found.")
 
     if args.eval_only:
-        #if cfg.SEMISUPNET.Trainer == "ubteacher":
-        if True:
+        if cfg.SEMISUPNET.Trainer == "ubteacher":
             model = Trainer.build_model(cfg)
             model_teacher = Trainer.build_model(cfg)
             ensem_ts_model = EnsembleTSModel(model_teacher, model)
@@ -45,9 +43,7 @@ def main(args):
             DetectionCheckpointer(
                 ensem_ts_model, save_dir=cfg.OUTPUT_DIR
             ).resume_or_load(cfg.MODEL.WEIGHTS, resume=args.resume)
-            # TODO figure out why modelTeacher doesn't work
-            # (this is the case after 1000 iter test training at least)
-            res = Trainer.test(cfg, ensem_ts_model.modelStudent)
+            res = Trainer.test(cfg, ensem_ts_model.modelTeacher)
 
         else:
             model = Trainer.build_model(cfg)
