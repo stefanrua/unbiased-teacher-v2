@@ -1,0 +1,53 @@
+OUTPUT_DIR: ./output-fcos
+_BASE_: "../Base-FCOS.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+  FCOS:
+    CENTER_SAMPLE: False
+    NMS_CRITERIA_TRAIN: "cls"
+    NMS_CRITERIA_TEST: "cls_n_ctr"
+    NMS_CRITERIA_REG_TRAIN: "cls_n_loc"
+    POS_RADIUS: 1.5
+    YIELD_PROPOSAL: True
+    UNIFY_CTRCLS: False
+    DFL_WEIGHT: 0.0
+    REG_DISCRETE: True
+    KL_LOSS: True
+    KLLOSS_WEIGHT: 0.05
+    KL_LOSS_TYPE: "nlloss"
+    NUM_CLASSES: 1
+INPUT:
+  MIN_SIZE_TRAIN: (800,)
+SOLVER:
+  IMG_PER_BATCH_LABEL: 32
+  IMG_PER_BATCH_UNLABEL: 32
+  BASE_LR: 0.01
+  STEPS: (20000,)
+  MAX_ITER: 20000
+  CHECKPOINT_PERIOD: 1000
+  AMP:
+    ENABLED: True
+DATALOADER:
+  FILTER_EMPTY_ANNOTATIONS: False
+DATASETS:
+  CROSS_DATASET: True
+  TRAIN_LABEL: ("alien_barley_train",)
+  TRAIN_UNLABEL: ("alien_barley_unlabeled",)
+  TEST: ("alien_barley_train", "alien_barley_test",)
+SEMISUPNET:
+  Trainer: "ubteacher"
+  BBOX_THRESHOLD: 0.5
+  TEACHER_UPDATE_ITER: 1
+  BURN_UP_STEP: 5000
+  EMA_KEEP_RATE: 0.9996
+  UNSUP_LOSS_WEIGHT: 4.0
+  UNSUP_REG_LOSS_WEIGHT: 1.0
+TEST:
+  EVAL_PERIOD: 100
+  EVALUATOR: "COCOeval"
+  VAL_LOSS: True
+INPUT:
+  MIN_SIZE_TRAIN: (400, 1200)
+  MIN_SIZE_TRAIN_SAMPLING: "range"
