@@ -30,6 +30,10 @@ register_coco_instances("alien_barley_2_val",
         {},
         f"{datasets}/alien-barley-2-train/annotations/val.json",
         f"{datasets}/alien-barley-2-train/train_labeled/")
+register_coco_instances("alien_barley_2_test",
+        {},
+        f"{datasets}/alien-barley-2-test/annotations/test.json",
+        f"{datasets}/alien-barley-2-test/test/")
 
 # for barleynet
 register_coco_instances("inference",

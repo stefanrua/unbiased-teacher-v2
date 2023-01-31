@@ -11,5 +11,7 @@ module load pytorch
 tar -xf /scratch/project_2005430/ruastefa/datasets/alien-barley-2-train.tar -C $LOCAL_SCRATCH
 
 srun python3 train_net.py \
+      --resume \
       --num-gpus 4 \
-      --config configs/Faster-RCNN/alien-barley/top_part.yaml
+      --config configs/Faster-RCNN/alien-barley/top_part.yaml \
+      MODEL.WEIGHTS output/model_0004999.pth
