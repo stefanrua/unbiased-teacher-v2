@@ -40,3 +40,7 @@ register_coco_instances("inference",
         {},
         f"instances.json",
         f"tiles/")
+register_coco_instances("inference_env",
+        {},
+        os.getenv('ANNOTATIONS'),
+        os.getenv('IMAGES'))
