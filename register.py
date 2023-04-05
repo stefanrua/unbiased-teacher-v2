@@ -40,7 +40,10 @@ register_coco_instances("inference",
         {},
         f"instances.json",
         f"tiles/")
-register_coco_instances("inference_env",
-        {},
-        os.getenv('ANNOTATIONS'),
-        os.getenv('IMAGES'))
+ANNS = os.getenv('ANNOTATIONS')
+IMGS = os.getenv('IMAGES')
+if ANNS and IMGS:
+    register_coco_instances("inference_env",
+            {},
+            ANNS,
+            IMGS)
