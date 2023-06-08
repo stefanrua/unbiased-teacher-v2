@@ -1,3 +1,21 @@
+# Unbiased Teacher v2
+
+The following instructions assume that you're running this on CSC's Mahti.
+
+## Adding a dataset
+
+1. Create a new dataset in the COCO format.
+1. Add the dataset to `register.py`.
+1. Edit a configuration file, `configs/Faster-RCNN/alien-barley/split1.yaml` for example, and change `TRAIN_LABEL`, `TRAIN_UNLABEL`, and `TEST` to the new dataset.
+1. Write a slurm script, such as `scripts/train-rcnn.sh`, that extracts the dataset to the node's local disk and points to your configuration file when running UTv2.
+
+## Running
+
+1. `sbatch scripts/your_script.sh` to queue your run.
+1. `./follow.sh` to follow the output when the run has started.
+
+# Original readme below
+
 # Unbiased Teacher v2: Semi-supervised Object Detection for Anchor-free and Anchor-based Detectors
 
 <img src="teaser/pytorch-logo-dark.png" width="10%"> [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
